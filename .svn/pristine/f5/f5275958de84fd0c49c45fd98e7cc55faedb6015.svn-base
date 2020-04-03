@@ -1,0 +1,48 @@
+﻿using System;
+using DSharpPlus;
+using System.Threading.Tasks;
+using DSharpPlus.CommandsNext;
+using DSharpPlus.Interactivity;
+
+namespace BotApp
+{
+
+    class Program
+    {
+        static DiscordClient discord;
+        static CommandsNextModule commands;
+        static InteractivityModule interactivity;
+
+        static void Main(string[] args)
+        {
+            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+
+        static async Task MainAsync(string[] args)
+        {
+            discord = new DiscordClient(new DiscordConfiguration
+            {
+                UseInternalLogHandler = true,
+                LogLevel = LogLevel.Debug,
+                Token = "NjMyNzE4MzM5MTM4OTEyMjc5.XaNk-g.lAmE8MWUDsoHZzHnllh3JTuZOlU",
+                TokenType = TokenType.Bot
+            });
+
+            discord.MessageCreated += async e =>
+            {
+                if (e.Message.Content.ToLower().StartsWith("bing"))
+                    await e.Message.RespondAsync("Really? bringing up that minecraft shit?");
+            };
+
+            commands = discord.UseCommandsNext(new CommandsNextConfiguration
+            {
+                StringPrefix = ";;"
+            });
+
+            commands.RegisterCommands<MyCommands>();
+
+            await discord.ConnectAsync();
+            await Task.Delay(-1);
+        }
+    }
+}
