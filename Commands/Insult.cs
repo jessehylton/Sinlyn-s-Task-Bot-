@@ -9,7 +9,7 @@ using DSharpPlus.Entities;
 namespace BotApp.Commands
 {
  
-    public class Insult
+    public class Insult : BaseCommandModule
     {
        
         [Command("insult")]

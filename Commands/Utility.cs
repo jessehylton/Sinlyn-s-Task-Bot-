@@ -1,4 +1,5 @@
 ﻿using DSharpPlus.CommandsNext;
+using DSharpPlus;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using DSharpPlus.Interactivity;
@@ -7,14 +8,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kitsu.Anime;
-using Kitsu.Manga;
-using Kitsu;
 
 namespace BotApp.Commands
 {
-    class Utility
+    [Group("mod")]
+    [Description("Stuff for the mods to use.")]
+    [Hidden]
+    [RequirePermissions(Permissions.ManageGuild)]
+    public class Utility : BaseCommandModule
     {
+
+
         [Command("guildinfo")]
         [Aliases("serverinfo")]
         [Description("Get some info about this guild")]
@@ -29,6 +33,22 @@ namespace BotApp.Commands
             emb.AddField("Created At", ctx.Guild.CreationTimestamp.ToString(), true);
             emb.AddField("Emojis", ctx.Guild.Emojis.Count.ToString(), true);
             await ctx.RespondAsync(embed: emb.Build());
+        }
+
+        [Command("kick")]
+        [Aliases("goaway")]
+        [Description("For kicking bastards out of the server")]
+        public async Task Kick(CommandContext ctx, [Description("The user to say fuck off to.")] DiscordMember member)
+
+        {
+            await ctx.TriggerTypingAsync();
+
+            await member.RemoveAsync(reason: $"{ctx.User.Username} has kicked ({ctx.User.Id}).");
+
+            var emoji = DiscordEmoji.FromName(ctx.Client, ":relaxed:");
+
+            await ctx.RespondAsync(emoji);
+            await ctx.RespondAsync($" {ctx.User.Username} has kicked ({ctx.User.Id}) like sparta. ");
         }
 
     }

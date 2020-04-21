@@ -15,13 +15,14 @@ namespace BotApp
     public class Program
     {
         public DiscordClient Client { get; set; }
-        public CommandsNextModule Commands { get; set; }
+        public CommandsNextExtension Commands { get; set; }
 
         public static void Main(string[] args)
         {
             // since we cannot make the entry method asynchronous,
             // let's pass the execution to asynchronous code
             var prog = new Program();
+
             prog.RunBotAsync().GetAwaiter().GetResult();
         }
 
@@ -59,7 +60,7 @@ namespace BotApp
             var ccfg = new CommandsNextConfiguration
             {
                 // let's use the string prefix defined in config.json
-                StringPrefix = cfgjson.CommandPrefix,
+                StringPrefixes = new string[] { cfgjson.CommandPrefix },
 
                 // enable responding in direct messages
                 EnableDms = true,
@@ -76,21 +77,23 @@ namespace BotApp
             this.Commands.CommandExecuted += this.Commands_CommandExecuted;
             this.Commands.CommandErrored += this.Commands_CommandErrored;
 
-            // let's add a converter for a custom type and a name
-            var mathopcvt = new MathOperationConverter();
-            CommandsNextUtilities.RegisterConverter(mathopcvt);
-            CommandsNextUtilities.RegisterUserFriendlyTypeName<MathOperation>("operation");
+        
+            this.Client.MessageCreated += async e =>
+            {
+                if (e.Message.Content.ToLower().StartsWith("sinlyn"))
+                    await e.Message.RespondAsync(" Hey Lazy, the prefix to call me is //");
+            };
 
             // up next, let's register our commands
-            this.Commands.RegisterCommands<ExampleUngrouppedCommands>();
-            this.Commands.RegisterCommands<ExampleGrouppedCommands>();
-            this.Commands.RegisterCommands<ExampleExecutableGroup>();
+            //this.Commands.RegisterCommands<Commands.Admin>();
+            this.Commands.RegisterCommands<Commands.ExampleUngrouppedCommands>();
+            this.Commands.RegisterCommands<Commands.Admin>();
             this.Commands.RegisterCommands<Commands.Insult>();
             this.Commands.RegisterCommands<Commands.Dice>();
             this.Commands.RegisterCommands<Commands.Utility>();
-
+            this.Commands.RegisterCommands<Commands.Greet>();
             // set up our custom help formatter
-            this.Commands.SetHelpFormatter<SimpleHelpFormatter>();
+            //this.Commands.SetHelpFormatter<SimpleHelpFormatter>();
 
             // finally, let's connect and log in
             await this.Client.ConnectAsync();

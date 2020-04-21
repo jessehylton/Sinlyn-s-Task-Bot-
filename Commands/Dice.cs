@@ -10,30 +10,39 @@ using DSharpPlus.Entities;
 
 namespace BotApp.Commands
 {
-    public class Dice
+    public class Dice : BaseCommandModule
     {
-        [Command("roll")]
-
-
+        [Command("roll"), Description("Roll, roll a die ")]
         public async Task Random(CommandContext ctx, int max)
         {
-            var rnd = new Random(DateTime.Now.Millisecond);
+            var rnd = new Random(DateTimeOffset.Now.Millisecond);
 
-            await ctx.RespondAsync($"🎲 Your roll is: {rnd.Next(max++)}");
+            await ctx.RespondAsync( $"🎲 Your roll is: {rnd.Next(1, max + 1)}");
         }
-       [Command("multiroll")]
 
-        public async Task MultRandom(CommandContext ctx, int mod, int max)
+        [Command("mroll"), Description("Multiroll, roll more than one die ")]
+        public async Task MultRandom(CommandContext ctx, [Description("Number of Dice")] int numOfDice, [Description("Number of sides")] int sides)
         {
-            int stop = mod + mod;
+            List<int> rolls = new List<int>();
+            
+            var stop = 0;
+            var rnd = new Random(DateTimeOffset.Now.Millisecond);
 
-            while (mod < stop)
+            while (stop < numOfDice) 
             {
-                var rnd = new Random(DateTime.Now.Millisecond);
+                var result = rnd.Next(1,sides+1);
+               
+                rolls.Add(result);
 
-                await ctx.RespondAsync($"🎲 Your roll is: {rnd.Next(max++)}");
-                mod++;
+                stop++;
             }
+
+            var total = rolls.Sum();
+         //Response
+            await ctx.TriggerTypingAsync();
+            await ctx.RespondAsync(":vertical_traffic_light:` Your rolls are: `");
+            await ctx.RespondAsync($">>> {string.Join(" , ", rolls)}");
+            await ctx.RespondAsync($"\n` The total is : {total} `");
         }
     }
 }
