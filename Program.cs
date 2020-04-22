@@ -77,7 +77,7 @@ namespace BotApp
             this.Commands.CommandExecuted += this.Commands_CommandExecuted;
             this.Commands.CommandErrored += this.Commands_CommandErrored;
 
-        
+
             this.Client.MessageCreated += async e =>
             {
                 if (e.Message.Content.ToLower().StartsWith("sinlyn"))
@@ -135,7 +135,7 @@ namespace BotApp
             // let's log the details of the error that just 
             // occured in our client
             e.Client.DebugLogger.LogMessage(LogLevel.Error, "Sinlyn's Task Bot", $"Exception occured: {e.Exception.GetType()}: {e.Exception.Message}", DateTime.Now);
-            
+
             // since this method is not async, let's return
             // a completed task, so that no additional work
             // is done

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
@@ -45,9 +44,9 @@ namespace BotApp.Commands
                 await ctx.RespondAsync($"Missed with your ban hammer, try better next time.");
             }
 
-        }    
-    
-        
+        }
+
+
     }
-    
+
 }

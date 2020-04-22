@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
@@ -26,7 +24,7 @@ namespace BotApp.Commands
             await ctx.RespondAsync($"{emoji} pong! Ping: {ctx.Client.Ping}ms");
         }
 
-       
+
 
         [Command("sum"), Description("Sums all given numbers and returns said sum.")]
         public async Task SumOfNumbers(CommandContext ctx, [Description("Integers to sum.")] params int[] args)
@@ -46,8 +44,8 @@ namespace BotApp.Commands
             await ctx.RespondAsync($"The sum of these numbers is {sum.ToString("#,##0")}");
         }
 
-      
-        
-    }   
-    
+
+
+    }
+
 }

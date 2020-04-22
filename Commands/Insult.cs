@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.Entities;
 namespace BotApp.Commands
 {
- 
+
     public class Insult : BaseCommandModule
     {
-       
+
         [Command("insult")]
         public async Task Insults(CommandContext burn)
         {
@@ -36,7 +32,7 @@ namespace BotApp.Commands
 
             }
 
-           
+
         }
     }
 }
