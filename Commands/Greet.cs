@@ -7,7 +7,7 @@ namespace BotApp.Commands
 {
     public class Greet : BaseCommandModule
     {
-        [Command("greet"), Description("Says hi to specified user."), Aliases("sayhi", "say_hi")]
+        [Command("greet"), Description("Says hi to someone."), Aliases("sayhi", "say_hi")]
         public async Task Greeting(CommandContext ctx, [Description("The user to say hi to.")] DiscordMember member) // this command takes a member as an argument; you can pass one by username, nickname, id, or mention
         {
             // note the [Description] attribute on the argument.
