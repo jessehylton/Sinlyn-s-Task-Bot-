@@ -1,6 +1,2 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
 
-/bin/Debug/netcoreapp2.1/config.json
-.vs/BotApp/v16/.suo
+bin/Debug/netcoreapp3.1/config.json
