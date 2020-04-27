@@ -77,7 +77,7 @@ namespace BotApp
             this.Commands.CommandExecuted += this.Commands_CommandExecuted;
             this.Commands.CommandErrored += this.Commands_CommandErrored;
 
-
+            
             this.Client.MessageCreated += async e =>
             {
                 if (e.Message.Content.ToLower().StartsWith("sinlyn"))
