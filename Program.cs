@@ -92,6 +92,7 @@ namespace BotApp
             this.Commands.RegisterCommands<Commands.Dice>();
             this.Commands.RegisterCommands<Commands.Utility>();
             this.Commands.RegisterCommands<Commands.Greet>();
+            this.Commands.RegisterCommands<Commands.IFeel>();
             // set up our custom help formatter
             //this.Commands.SetHelpFormatter<SimpleHelpFormatter>();
 
