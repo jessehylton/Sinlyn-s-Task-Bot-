@@ -198,11 +198,5 @@ namespace BotApp.Commands
             }
 
         }
-        public async Task ScaredResponse(CommandContext ctx)
-        {
-            await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync($"{ctx.User.Mention} is scared!");
-            await ctx.RespondAsync(embed: embed);
-        }
     }
 }
